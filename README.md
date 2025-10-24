@@ -50,3 +50,44 @@ SPOILER
 The hamiltonian approach wins almost every single time. The spiral taken as the default or baseline has a win rate of 5-10% only.
 
 
+
+
+## Files in src (what each does)
+
+- `com.blindsnake.GameIO` — minimal interface the bots use to send a direction and returns true if the move eats the apple
+- `com.blindsnake.Direction` — the four buttons: UP, DOWN, LEFT, RIGHT
+- `com.blindsnake.Engine` — very small engine to wrap-around edges, random start and apple position, hard 35·S cap, simulating torus
+- `com.blindsnake.BlindSnakeBot` — 30×RIGHT, then 1×DOWN, repeat.
+- `com.blindsnake.SpiralSnakeBot` — simple spiral walker for baseline.
+- `com.blindsnake.Main` — runs one game and prints WIN/LOSS and number of presses.
+- `com.blindsnake.Benchmark` — runs many random boards and compares drift vs spiral and reports win rate and average steps on wins
+
+## Quick commands 
+
+Build all sources:
+
+```bash
+javac -d out $(find src/main/java -name "*.java")
+```
+
+Run a single demo game with random seeds:
+
+```bash
+java -cp out com.blindsnake.Main 1000 1000 42
+```
+
+Run the benchmark :
+
+```bash
+java -cp out com.blindsnake.Benchmark 100 123 50000
+```
+
+Examples:
+
+```bash
+# board that usually wins fast with the drift
+java -cp out com.blindsnake.Main 997 1000 42
+
+# strategies on small random boards
+java -cp out com.blindsnake.Benchmark 200 123 30000
+```
